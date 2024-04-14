@@ -5,11 +5,11 @@ import { getSub } from './service';
 const app = express();
 const port = 9000;
 
-app.set('trust proxy', true);
+app.set('trust_proxy', true);
 
 app.use(express.json());
 
-app.post('/getSub', getSub);
+app.get('/getSub', getSub);
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
