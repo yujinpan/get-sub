@@ -13,10 +13,12 @@ module.exports = {
     {
       format: 'cjs',
       inputFiles: ['**/*'],
-      outputDir: 'scf',
+      outputDir: 'lib',
       outputFile: '[name][ext]',
     },
   ],
+
+  outputDir: 'lib',
 
   node: true,
 };

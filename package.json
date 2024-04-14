@@ -5,9 +5,10 @@
   "private": true,
   "scripts": {
     "publish:beta": "release-ops beta --publish=false",
-    "publish:patch": "npm version patch --publish=patch",
-    "build": "rollupx",
-    "test": "cross-env NODE_ENV=development jest"
+    "publish:patch": "release-ops patch --publish=false",
+    "build": "rollupx && cp .env.local lib/",
+    "test": "cross-env NODE_ENV=development jest",
+    "start": "cross-env NODE_ENV=development && ts-node src/app.ts"
   },
   "author": "yujinpan",
   "devDependencies": {
@@ -26,6 +27,7 @@
     "prettier": "^2.7.1",
     "rollupx": "^3.1.1",
     "ts-jest": "^29.0.2",
+    "ts-node": "^10.9.2",
     "typescript": "^4.8.3"
   },
   "license": "MIT",
