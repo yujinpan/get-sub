@@ -5,11 +5,14 @@ import * as glob from 'glob';
 import type { RequestHandler } from 'express';
 
 dotenv.config({ path: `.env` });
-dotenv.config({ path: `.env.local` });
-dotenv.config({ path: `.env.development` });
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: `.env.local`, override: true });
+} else {
+  dotenv.config({ path: `.env.development`, override: true });
+}
 
 export const getSub: RequestHandler = (req, res) => {
-  const token = req.params.token;
+  const token = req.query.token;
 
   if (token !== process.env.TOKEN) {
     return res.status(400).send('Token invalid.');
