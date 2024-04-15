@@ -9,16 +9,9 @@ module.exports = {
     '@': 'src',
   },
 
-  formats: [
-    {
-      format: 'cjs',
-      inputFiles: ['**/*'],
-      outputDir: 'lib',
-      outputFile: '[name][ext]',
-    },
-  ],
-
-  outputDir: 'lib',
+  format: 'cjs',
+  outputDir: 'dist/src',
+  outputs: ['js'],
 
   node: true,
 };
