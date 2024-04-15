@@ -6,11 +6,12 @@
   "scripts": {
     "publish:beta": "release-ops beta --publish=false && sh deploy.sh",
     "publish:patch": "release-ops patch --publish=false && sh deploy.sh",
-    "build": "rollupx && cp .env.local ecosystem.config.js package.json dist/ && fs-ops zip dist -o=dist/dist.zip",
+    "build": "rollupx && npm run build:config && fs-ops zip dist -o=dist/get-sub.zip",
+    "build:config": "cp .env.local ecosystem.config.js package.json dist/",
     "test": "cross-env NODE_ENV=development jest",
     "test:pm2": "npm run build && cd dist && npm run start:pm2",
     "start": "cross-env NODE_ENV=development && ts-node src/app.ts",
-    "start:pm2": "npm i --production && pm2 start ecosystem.config.js"
+    "start:pm2": "NODE_ENV=production && npm i && pm2 start ecosystem.config.js"
   },
   "author": "yujinpan",
   "devDependencies": {
