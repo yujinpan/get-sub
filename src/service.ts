@@ -3,6 +3,7 @@ import fs from 'fs';
 import * as glob from 'glob';
 
 import type { RequestHandler } from 'express';
+import { getServerIP } from './utils';
 
 dotenv.config({ path: `.env` });
 if (process.env.NODE_ENV === 'production') {
@@ -18,7 +19,7 @@ export const getSub: RequestHandler = (req, res) => {
     return res.status(400).send('Token invalid.');
   }
 
-  const result = getV2RaySubResult(req.ip);
+  const result = getV2RaySubResult();
 
   return res.send(result);
 };
@@ -32,7 +33,7 @@ type V2RayInbound = {
   };
 };
 
-export function getV2RaySubResult(ip: string): string {
+export function getV2RaySubResult(): string {
   const v2rayConfigPath = process.env.V2RAY_CONFIG_PATH || '/etc/v2ray/conf';
   const configs: V2RayInbound[] = glob
     .sync(`${v2rayConfigPath}/*.json`)
@@ -48,6 +49,7 @@ export function getV2RaySubResult(ip: string): string {
         settings: { clients },
       } = item;
       const password = clients[0].id;
+      const ip = getServerIP();
 
       if (protocol === 'vmess') {
         const params = base64Encode(
