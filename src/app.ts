@@ -5,8 +5,6 @@ import { getSub } from './service';
 const app = express();
 const port = 9000;
 
-app.set('trust_proxy', true);
-
 app.use(express.json());
 
 app.get('/getSub', getSub);
