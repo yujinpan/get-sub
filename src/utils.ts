@@ -1,5 +1,6 @@
 import {networkInterfaces} from 'os'
 
 export function getServerIP() {
-  return networkInterfaces()['en0'].find(item => item.family === 'IPv4')?.address
+  const interfaces = networkInterfaces();
+  return (interfaces['en0'] || interfaces['eth0']).find(item => item.family === 'IPv4')?.address
 }

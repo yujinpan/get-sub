@@ -40,6 +40,7 @@ export function getV2RaySubResult(): string {
     .flatMap((file: string) => {
       return JSON.parse(fs.readFileSync(file).toString()).inbounds;
     });
+  const ip = getServerIP();
   const result = configs
     .map((item) => {
       const {
@@ -49,7 +50,6 @@ export function getV2RaySubResult(): string {
         settings: { clients },
       } = item;
       const password = clients[0].id;
-      const ip = getServerIP();
 
       if (protocol === 'vmess') {
         const params = base64Encode(
